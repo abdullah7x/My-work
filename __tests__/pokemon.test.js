@@ -75,8 +75,8 @@ describe.only("Trainer", () => {
     );
     const testTrainer = new Trainer("Abdullah");
     testTrainer.catch(testPokemon);
-    expect(testTrainer.pokemon).toEqual([
-      {
+    expect(testTrainer.pokemon).toEqual({
+      Eevee: {
         name: "Eevee",
         type: "normal",
         hitpoints: 55,
@@ -84,7 +84,7 @@ describe.only("Trainer", () => {
         sound: "Eev... Eevee!",
         attackDamage: 18,
       },
-    ]);
+    });
   });
   test("catch method only pushes when storage not full", () => {
     const testPokemon = new Pokemon();
