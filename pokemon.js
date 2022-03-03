@@ -47,10 +47,10 @@ function Battle(trainer1, trainer1PokemonName, trainer2, trainer2PokemonName) {
   this.trainer2Turn = false;
 }
 Battle.prototype.fight = function fightNow() {
-  let strength1 = this.trainer1Pokemon['strength'];
-  let weakness1 = this.trainer1Pokemon['weakness'];
-  let strength2 = this.trainer2Pokemon['strength'];
-  let weakness2 = this.trainer2Pokemon['weakness'];
+  const strength1 = this.trainer1Pokemon['strength'];
+  const weakness1 = this.trainer1Pokemon['weakness'];
+  const strength2 = this.trainer2Pokemon['strength'];
+  const weakness2 = this.trainer2Pokemon['weakness'];
   if (this.trainer1Turn) {
     let turnDamage = this.trainer1Pokemon['attackDamage'];
     if (strength1 === this.trainer2Pokemon['type']) {
