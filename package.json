@@ -1,0 +1,23 @@
+{
+  "name": "fun-pokemon-battler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "pokemon.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamCode9/fun-pokemon-battler.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CamCode9/fun-pokemon-battler/issues"
+  },
+  "homepage": "https://github.com/CamCode9/fun-pokemon-battler#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
