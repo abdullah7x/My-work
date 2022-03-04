@@ -1,5 +1,5 @@
 class Pokemon {
-  constructor(name, type = "normal", hitpoints, move, sound, attackDamage) {
+  constructor(name, type = 'normal', hitpoints, move, sound, attackDamage) {
     this.name = name;
     this.type = type;
     this.hitpoints = hitpoints;
@@ -8,18 +8,18 @@ class Pokemon {
     this.attackDamage = attackDamage;
   }
   strength() {
-    if (this.type === "fire") {
-      this.strength = "grass";
-    } else if (this.type === "grass") {
-      this.strength = "water";
-    } else this.strength = "fire";
+    if (this.type === 'fire') {
+      this.strength = 'grass';
+    } else if (this.type === 'grass') {
+      this.strength = 'water';
+    } else this.strength = 'fire';
   }
   weakness() {
-    if (this.type === "grass") {
-      this.weakness = "fire";
-    } else if (this.type === "water") {
-      this.weakness = "grass";
-    } else this.weakness = "water";
+    if (this.type === 'grass') {
+      this.weakness = 'fire';
+    } else if (this.type === 'water') {
+      this.weakness = 'grass';
+    } else this.weakness = 'water';
   }
   talk() {
     return this.sound;
@@ -40,7 +40,7 @@ class Trainer {
     if (this.numberOfPokemon < 6) {
       this.pokemon[pokemon.name] = pokemon;
       this.numberOfPokemon++;
-    } else return "Your Pokemon storage is full!";
+    } else return 'Your Pokemon storage is full!';
   }
 }
 
@@ -54,36 +54,42 @@ class Battle {
     this.trainer2Turn = false;
   }
   fight() {
-    let strength1 = this.trainer1Pokemon["strength"];
-    let weakness1 = this.trainer1Pokemon["weakness"];
-    let strength2 = this.trainer2Pokemon["strength"];
-    let weakness2 = this.trainer2Pokemon["weakness"];
+    let strength1 = this.trainer1Pokemon['strength'];
+    let weakness1 = this.trainer1Pokemon['weakness'];
+    let strength2 = this.trainer2Pokemon['strength'];
+    let weakness2 = this.trainer2Pokemon['weakness'];
 
-    if (this.trainer1Turn) {
-      let turnDamage = this.trainer1Pokemon["attackDamage"];
-      if (strength1 === this.trainer2Pokemon["type"]) {
-        this.trainer2Pokemon["hitpoints"] -= turnDamage * 1.25;
+    if (this.trainer1Turn && this.trainer1Pokemon['hitpoints'] > 0) {
+      let turnDamage = this.trainer1Pokemon['attackDamage'];
+      if (strength1 === this.trainer2Pokemon['type']) {
+        this.trainer2Pokemon['hitpoints'] -= turnDamage * 1.25;
         this.superEffective();
-      } else if (strength2 === this.trainer1Pokemon["type"]) {
-        this.trainer2Pokemon["hitpoints"] -= turnDamage * 0.75;
+      } else if (strength2 === this.trainer1Pokemon['type']) {
+        this.trainer2Pokemon['hitpoints'] -= turnDamage * 0.75;
         this.notEffective();
       } else {
-        this.trainer2Pokemon["hitpoints"] -= turnDamage;
+        this.trainer2Pokemon['hitpoints'] -= turnDamage;
         this.normalEffective();
       }
       this.trainer1Turn = false;
       this.trainer2Turn = true;
-    } else if (this.trainer2Turn) {
-      let turnDamage = this.trainer2Pokemon["attackDamage"];
-      if (strength2 === this.trainer1Pokemon["type"]) {
-        this.trainer1Pokemon["hitpoints"] -= turnDamage * 1.25;
+      if (this.trainer2Pokemon['hitpoints'] <= 0) {
+        this.pokemon1Wins();
+      }
+    } else if (this.trainer2Turn && this.trainer2Pokemon['hitpoints'] > 0) {
+      let turnDamage = this.trainer2Pokemon['attackDamage'];
+      if (strength2 === this.trainer1Pokemon['type']) {
+        this.trainer1Pokemon['hitpoints'] -= turnDamage * 1.25;
         this.superEffective();
-      } else if (strength1 === this.trainer2Pokemon["type"]) {
-        this.trainer1Pokemon["hitpoints"] -= turnDamage * 0.75;
+      } else if (strength1 === this.trainer2Pokemon['type']) {
+        this.trainer1Pokemon['hitpoints'] -= turnDamage * 0.75;
         this.notEffective();
       } else {
-        this.trainer1Pokemon["hitpoints"] -= turnDamage;
+        this.trainer1Pokemon['hitpoints'] -= turnDamage;
         this.normalEffective();
+      }
+      if (this.trainer1Pokemon['hitpoints'] <= 0) {
+        this.pokemon2Wins();
       }
       this.trainer1Turn = true;
       this.trainer2Turn = false;
@@ -91,13 +97,21 @@ class Battle {
   }
 
   superEffective() {
-    console.log("It's super effective!");
+    return "It's super effective!";
   }
   notEffective() {
-    console.log("It's not very effective...");
+    return "It's not very effective...";
   }
   normalEffective() {
-    console.log("Damaged your opponent");
+    return 'Damaged your opponent';
+  }
+  pokemon1Wins() {
+    return `${this.trainer2Pokemon['name']} fainted, ${this.trainer1Pokemon['name']} wins!`;
+  }
+  pokemon2Wins() {
+    console.log(
+      `${this.trainer1Pokemon['name']} fainted, ${this.trainer2Pokemon['name']} wins!`
+    );
   }
 }
 

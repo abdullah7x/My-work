@@ -19,5 +19,8 @@
   "homepage": "https://github.com/CamCode9/fun-pokemon-battler#readme",
   "devDependencies": {
     "jest": "^27.5.1"
+  },
+  "dependencies": {
+    "inquirer": "^8.2.0"
   }
 }
