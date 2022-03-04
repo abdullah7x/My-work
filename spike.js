@@ -57,9 +57,18 @@ class Battle {
     let weakness1 = this.trainer1Pokemon['weakness'];
     let strength2 = this.trainer2Pokemon['strength'];
     let weakness2 = this.trainer2Pokemon['weakness'];
+    let criticalHitNum = 5;
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    let currentCriticalHit = getRandomInt(9);
 
     if (this.trainer1Turn && this.trainer1Pokemon['hitpoints'] > 0) {
       let turnDamage = this.trainer1Pokemon['attackDamage'];
+      if (currentCriticalHit === criticalHitNum) {
+        turnDamage *= 3;
+        console.log("It's a critical hit!");
+      }
       if (strength1 === this.trainer2Pokemon['type']) {
         this.trainer2Pokemon['hitpoints'] -= turnDamage * 1.25;
         this.superEffective();
@@ -77,6 +86,10 @@ class Battle {
       }
     } else if (this.trainer2Turn && this.trainer2Pokemon['hitpoints'] > 0) {
       let turnDamage = this.trainer2Pokemon['attackDamage'];
+      if (currentCriticalHit === criticalHitNum) {
+        turnDamage *= 3;
+        console.log("It's a critical hit");
+      }
       if (strength2 === this.trainer1Pokemon['type']) {
         this.trainer1Pokemon['hitpoints'] -= turnDamage * 1.25;
         this.superEffective();
@@ -163,7 +176,7 @@ const thirdQuestions = [
     choices: ['Fight!', 'Flee'],
   },
 ];
-const fourthQuestion = [
+const fourthQuestions = [
   {
     type: 'list',
     name: 'turnTwo',
@@ -179,7 +192,7 @@ const fifthQuestions = [
     choices: ['Fight!', 'Flee'],
   },
 ];
-const sixthQuestion = [
+const sixthQuestions = [
   {
     type: 'list',
     name: 'turnFour',
@@ -187,7 +200,7 @@ const sixthQuestion = [
     choices: ['Fight!', 'Flee'],
   },
 ];
-const seventhQuestion = [
+const seventhQuestions = [
   {
     type: 'list',
     name: 'turnFive',
@@ -195,7 +208,7 @@ const seventhQuestion = [
     choices: ['Fight!', 'Flee'],
   },
 ];
-const eighthQuestion = [
+const eighthQuestions = [
   {
     type: 'list',
     name: 'turnSix',
@@ -234,6 +247,8 @@ function playGame() {
           'Cha... Charmander!',
           17
         );
+        Charmander.strength();
+        Charmander.weakness();
         firstTrainer.catch(Charmander);
       }
       if (firstAnswers.pokemon1 === 'Vaporeon') {
@@ -245,6 +260,8 @@ function playGame() {
           'Vap... Vaporeon!',
           19
         );
+        Vaporeon.strength();
+        Vaporeon.weakness();
         firstTrainer.catch(Vaporeon);
       }
       secondTrainer = new Trainer(firstAnswers.name2);
@@ -269,6 +286,8 @@ function playGame() {
           'Cha... Charmander!',
           17
         );
+        Charmander.strength();
+        Charmander.weakness();
         secondTrainer.catch(Charmander);
       }
       if (firstAnswers.pokemon2 === 'Vaporeon') {
@@ -280,6 +299,8 @@ function playGame() {
           'Vap... Vaporeon!',
           19
         );
+        Vaporeon.strength();
+        Vaporeon.weakness();
         secondTrainer.catch(Vaporeon);
       }
       if (firstAnswers.talkToPokemon) {
@@ -307,6 +328,61 @@ function playGame() {
           `${realBattle.trainer2Pokemon.name}'s hitpoints are now ${realBattle.trainer2Pokemon.hitpoints}!`
         );
       } else console.log(`${realBattle.trainer2} wins`);
+      if (realBattle.trainer2Pokemon.hitpoints > 0) {
+        return inquirer.prompt(fourthQuestions);
+      }
+    })
+    .then(function (fourthQuestions) {
+      if (fourthQuestions.turnTwo === 'Fight!') {
+        realBattle.fight();
+        console.log(
+          `${realBattle.trainer1Pokemon.name}'s hitpoints are now ${realBattle.trainer1Pokemon.hitpoints}!`
+        );
+      } else console.log(`${realBattle.trainer1} wins`);
+      if (realBattle.trainer1Pokemon.hitpoints > 0) {
+        return inquirer.prompt(fifthQuestions);
+      }
+    })
+    .then(function (fifthQuestions) {
+      if (fifthQuestions.turnThree === 'Fight!') {
+        realBattle.fight();
+        console.log(
+          `${realBattle.trainer2Pokemon.name}'s hitpoints are now ${realBattle.trainer2Pokemon.hitpoints}!`
+        );
+      } else console.log(`${realBattle.trainer2} wins`);
+      if (realBattle.trainer2Pokemon.hitpoints > 0) {
+        return inquirer.prompt(sixthQuestions);
+      }
+    })
+    .then(function (sixthQuestions) {
+      if (sixthQuestions.turnFour === 'Fight!') {
+        realBattle.fight();
+        console.log(
+          `${realBattle.trainer1Pokemon.name}'s hitpoints are now ${realBattle.trainer1Pokemon.hitpoints}!`
+        );
+      } else console.log(`${realBattle.trainer1} wins`);
+      if (realBattle.trainer1Pokemon.hitpoints > 0) {
+        return inquirer.prompt(seventhQuestions);
+      }
+    })
+    .then(function (seventhQuestions) {
+      if (seventhQuestions.turnFive === 'Fight!') {
+        realBattle.fight();
+        console.log(
+          `${realBattle.trainer2Pokemon.name}'s hitpoints are now ${realBattle.trainer2Pokemon.hitpoints}!`
+        );
+      } else console.log(`${realBattle.trainer2} wins`);
+      if (realBattle.trainer2Pokemon.hitpoints > 0) {
+        return inquirer.prompt(eighthQuestions);
+      }
+    })
+    .then(function (eighthQuestions) {
+      if (eighthQuestions.turnSix === 'Fight!') {
+        realBattle.fight();
+        console.log(
+          `${realBattle.trainer1Pokemon.name}'s hitpoints are now ${realBattle.trainer1Pokemon.hitpoints}!`
+        );
+      } else console.log(`${realBattle.trainer1} wins`);
     });
 }
 playGame();

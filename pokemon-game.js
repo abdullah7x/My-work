@@ -109,9 +109,7 @@ class Battle {
     return `${this.trainer2Pokemon['name']} fainted, ${this.trainer1Pokemon['name']} wins!`;
   }
   pokemon2Wins() {
-    console.log(
-      `${this.trainer1Pokemon['name']} fainted, ${this.trainer2Pokemon['name']} wins!`
-    );
+    return `${this.trainer1Pokemon['name']} fainted, ${this.trainer2Pokemon['name']} wins!`;
   }
 }
 
