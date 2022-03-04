@@ -101,35 +101,4 @@ class Battle {
   }
 }
 
-const abdullahTrainer = new Trainer("Abdullah");
-const vaporeonPokemon = new Pokemon(
-  "Vaporeon",
-  "water",
-  70,
-  "Hydro pump",
-  "Vap... Vaporeon!",
-  19
-);
-abdullahTrainer.catch(vaporeonPokemon);
-const camTrainer = new Trainer("Cam");
-const charmanderPokemon = new Pokemon(
-  "Charmander",
-  "fire",
-  44,
-  "flamethrower",
-  "Cha... Charmander!",
-  17
-);
-camTrainer.catch(charmanderPokemon);
-const testBattle = new Battle(
-  abdullahTrainer,
-  "Vaporeon",
-  camTrainer,
-  "Charmander"
-);
-vaporeonPokemon.strength();
-vaporeonPokemon.weakness();
-charmanderPokemon.strength();
-charmanderPokemon.weakness();
-
 module.exports = { Pokemon, Trainer, Battle };
